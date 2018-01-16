@@ -8,56 +8,38 @@ Created on Mon Jan  8 12:37:14 2018
 import json
 with open ("precipitation.json") as my_file:
     percip = json.load(my_file)
+    Seattle = [item for item in percip
+                     if item['station'] == 'GHCND:US1WAKG0038']
     
+    Seattle_total_percipitation = sum(item['value'] for item in seattle_dict)
+    #The total rainfall is 11180, which is the correct answer  
     
-#daily_Seattle = list()
-#n=0
-#for line in percip:
-#    Stations = percip[n]['station']
-#    Date = percip[n]['date']
-#    Values = percip[n]['value']
-#    if Stations == 'GHCND:US1WAKG0038': 
-#      daily_Seattle.append(Values)
-#    n = n + 1
-#Seattle_total_percipitation = sum(Seattle)
-#print(Seattle_total_percipitation)    
 
-
-"""
-line 8-24 calculate all of the rain fall
-
-""" 
-
-
-total_year = []
+    
+    Date = [item['date'][5:7] for item in Seattle]
+    Values = [item['value'] for item in Seattle]
+    monthvalue = zip(Date,Values)
+    
+    for k,v in monthvalue:
+        monthy_Seattle[(int(k) - 1)] += v
  
         
-
-
-
-
-monthsinyear = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
-
-import json
-with open ("precipitation.json") as my_file:
-    percip = json.load(my_file)
-    for months in monthsinyear:
-        monthly_Seattle = []
-        for line in percip:
-            Stations = line['station']
-            if Stations == 'GHCND:US1WAKG0038': 
-                Date = line['date'][5:7]
-                if Date == monthsinyear:
-                    Values = line['value']
-                    monthly_Seattle.append(Values)
-print (monthly_Seattle)
-        
                     
-
+    Relative_month =  [x / Seattle_total_percipitation for x in monthy_Seattle]
     
     
+    with open('Seattle.json','w') as file:
+        json.dump({"Seattle": {
+                "totalYearlyPrecipitation" : Seattle_total_percipitation,
+                "totalMonthlyPrecipitation" : monthly_Seattle,
+                "state" : "WA",
+                "relativeMonthlyPrecipitation": Relative_month,
+                "Station" : "GHCND:US1WAKG0038"
+            }
+    },file)
+    
 
-
+print(monthy_Seattle)
 
 
 #
