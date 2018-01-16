@@ -12,7 +12,7 @@ with open ("precipitation.json") as my_file:
                      if item['station'] == 'GHCND:US1WAKG0038']
     
     Seattle_total_percipitation = sum(item['value'] for item in seattle_dict)
-    #The total rainfall is 11180, which is the correct answer  
+    
     
 
     
@@ -37,42 +37,4 @@ with open ("precipitation.json") as my_file:
                 "Station" : "GHCND:US1WAKG0038"
             }
     },file)
-    
-
-print(monthy_Seattle)
-
-
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-##Seattle_total_percipitation = sum(Seattle)
-##print(Seattle_total_percipitation)    
-#
-# 
-#        
-#    
-#    
-##    
-##    
-##    
-##    stationslist = []
-##    stationslist = [percip_dict [2]]
-##    print (stationslist)    
-##with open ("stations.csv") as file:
-##    reader = csv.reader(file)
-##    for row in reader:
-##        print (row)
-##        
+      
